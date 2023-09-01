@@ -4,10 +4,10 @@
 
 	<select id="selectUserInfos"
 		resultType="com.game.team3.vo.UserInfoVO">
-		SELECT * FROM user_info;
+		SELECT * FROM user_info
 		<where>
 			<if test='uiName != null and uiName !="" '>
-				AND UI_NAME LIKE CONCAT ('%',#{uiName},'%') 
+				AND UI_NAME LIKE CONCAT ('%',#{uiName},'%')
 			</if>
 			<if test="uiNum !=0">
 				AND UI_NUM = #{uiNum}
@@ -18,13 +18,13 @@
 	<select id="selectUserInfo"
 		resultType="com.game.team3.vo.UserInfoVO">
 		SELECT * FROM user_info
-		WHERE UI_NUM = #{uiNum}; 
+		WHERE UI_NUM = #{uiNum}
 	</select>
 
-	<insert id="insertUserInfo"   
+	<insert id="insertUserInfo"
 		parameterType="com.game.team3.vo.UserInfoVO">
 		INSERT INTO user_info(UI_NAME, UI_ID, UI_PWD)
-		VALUES(#{uiName},#{uiId},#{uiPwd});
+		VALUES(#{uiName},#{uiId},#{uiPwd})
 	</insert>
 
 	<update id="updateUserInfo"
@@ -33,10 +33,18 @@
 		SET UI_NAME = #{uiName},
 		UI_ID = #{uiId},
 		UI_PWD = #{uiPwd}
-		WHERE UI_NUM = #{uiNum};
+		WHERE UI_NUM = #{uiNum}
 	</update>
-	
-	<delete id="deleteUserInfo" parameterType="com.game.team3.vo.UserInfoVO">
-		DELETE FROM user_info WHERE UI_NUM=#{uiNum}; 
+
+	<delete id="deleteUserInfo"
+		parameterType="com.game.team3.vo.UserInfoVO">
+		DELETE FROM user_info WHERE UI_NUM=#{uiNum}
 	</delete>
+
+	<select id="selectUserInfoByIdAndPwd"
+		resultType="com.game.team3.vo.UserInfoVO">
+		SELECT * FROM user_info
+		WHERE UI_ID = #{uiId}
+		AND UI_PWD = #{uiPwd}
+	</select>
 </mapper>

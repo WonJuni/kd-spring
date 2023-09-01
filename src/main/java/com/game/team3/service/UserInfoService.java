@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.game.team3.mapper.UserInfoMapper;
+import com.game.team3.util.JWTToken;
 import com.game.team3.vo.UserInfoVO;
 
 import lombok.AllArgsConstructor;
@@ -15,6 +16,10 @@ public class UserInfoService {
 	
 	@Autowired
 	private UserInfoMapper userInfoMapper;
+	
+	@Autowired
+	private JWTToken jwtToken;
+	
 
 	public List<UserInfoVO> getUserInfos(UserInfoVO user){
 		return userInfoMapper.selectUserInfos(user);
@@ -32,5 +37,14 @@ public class UserInfoService {
 	}
 	public int deleteUserInfo(int uiNum) {
 		return userInfoMapper.deleteUserInfo(uiNum);
+	}
+	public UserInfoVO login(UserInfoVO user) {
+		user = userInfoMapper.selectUserInfoByIdAndPwd(user);
+		if(user != null) {
+			String token = jwtToken.getToken(user.getUiId());
+			user.setToken(token);
+			user.setUiPwd(null);
+		}
+		return user;
 	}
 }

@@ -10,4 +10,5 @@ public interface UserInfoMapper {
 	int insertUserInfo(UserInfoVO user);
 	int updateUserInfo(UserInfoVO user);
 	int deleteUserInfo(int uiNum);
+	UserInfoVO selectUserInfoByIdAndPwd(UserInfoVO user);
 }
